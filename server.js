@@ -31,7 +31,7 @@ const __dirname = path.dirname(__filename);
 
 // Create the Express app
 const app = express();
-
+connectDB()
 
 // for deployment
 app.use(express.static(path.join(__dirname, "./frontend/build")));
@@ -68,18 +68,11 @@ app.use("*", function (req, res) {
 
 
 // Running the server
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => {
-//     console.log(`Server running at ${PORT}`);
-// });
-
 const PORT = process.env.PORT || 5000;
-//Connect to the database before listening
-connectDB().then(() => {
-    app.listen(PORT, () => {
-        console.log("listening for requests");
-    })
-})
+app.listen(PORT, () => {
+    console.log(`Server running at ${PORT}`);
+});
+
 
 
 
