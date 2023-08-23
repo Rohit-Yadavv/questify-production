@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
 import colors from 'colors';
+import dotenv from 'dotenv';
 
+
+dotenv.config();
 // Function to connect to the MongoDB database
 const connectDB = async () => {
     try {
