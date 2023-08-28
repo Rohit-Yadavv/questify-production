@@ -146,7 +146,7 @@ export const deleteBlogController = async (req, res) => {
 // latest blog get
 export const getLatestBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find({}).sort({ createdAt: -1 }).select("-photo").limit(10)
+        const blogs = await Blog.find({}).sort({ createdAt: -1 }).select("-photo").populate("category").limit(10).sort({ createdAt: -1 })
 
         res.status(200).send({
             success: true,
