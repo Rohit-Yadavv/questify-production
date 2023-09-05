@@ -33,7 +33,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // for deployment
-// app.use(express.static(path.join(__dirname, "./frontend/build")));
+app.use(express.static(path.join(__dirname, "./frontend/build")));
 
 
 // Routes
@@ -49,9 +49,9 @@ app.use('/api/v1/contact', contactRouter);
 app.use('/api/v1/connect', connectRouter);
 
 // rest api deployment
-// app.use("*", function (req, res) {
-//     res.sendFile(path.join(__dirname, "./frontend/build/index.html"))
-// })
+app.use("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "./frontend/build/index.html"))
+})
 
 
 const PORT = process.env.PORT || 5000;
