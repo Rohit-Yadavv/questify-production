@@ -125,6 +125,32 @@ export const getSingleBlogController = async (req, res) => {
     }
 };
 
+
+// similar products
+export const getRelatedBlogsController = async (req, res) => {
+    try {
+        console.log("first")
+        const { pid, cid } = req.params;
+        const blogs = await Blog
+            .find({
+                category: cid,
+                _id: { $ne: pid },
+            })
+            .select("-photo")
+            .populate("category");
+        res.status(200).send({
+            success: true,
+            blogs,
+        });
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "error while geting related blogs",
+            error,
+        });
+    }
+};
+
 // Delete a blog
 export const deleteBlogController = async (req, res) => {
     try {
