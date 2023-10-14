@@ -1,5 +1,5 @@
 import express from 'express';
-import { getRelatedBlogsController, checkBlogLiked, getLikedArticles, getLatestBlogs, likeBlogController, getBlogPhotoController, deleteBlogController, createBlogController, getAllBlogsController, getSingleBlogController, updateBlogController } from '../controller/blogController.js';
+import { getOgImage,getRelatedBlogsController, checkBlogLiked, getLikedArticles, getLatestBlogs, likeBlogController, getBlogPhotoController, deleteBlogController, createBlogController, getAllBlogsController, getSingleBlogController, updateBlogController } from '../controller/blogController.js';
 import formidable from 'express-formidable';
 import { isAdmin, requireSignIn } from '../middleware/authMiddleware.js';
 const router = express.Router();
@@ -40,6 +40,7 @@ router.post('/like-blog/:bid', requireSignIn, likeBlogController);
 // get all liked blog by user 
 router.get('/liked-blogs', requireSignIn, getLikedArticles);
 
+router.get('/blog-photo-direct/:id', getOgImage);
 
 
 export default router;

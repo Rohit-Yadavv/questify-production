@@ -3,12 +3,11 @@ import User from "../models/userModel.js";
 import Liked from "../models/likeModel.js";
 import slugify from "slugify";
 import fs from 'fs';
+import axios from 'axios';
 // Create a new blog
 export const createBlogController = async (req, res) => {
 
     try {
-
-
         const { title, description, category, content } = req.fields;
         const { photo } = req.files;
 
@@ -272,3 +271,19 @@ export const getBlogPhotoController = async (req, res) => {
     }
 
 };
+export const getOgImage = async (req, res) => {
+    try {
+        // Fetch the image data from your API
+        const response = await axios.get(`https://www.questify.site/api/v1/blog/blog-photo/${req.params.id}`, {
+            responseType: 'stream', // Set the response type to stream to directly pipe the image
+        });
+        const imageContentType = response.headers['content-type'];
+        res.set('Content-Type', imageContentType);
+
+        // Pipe the image data to the response
+        response.data.pipe(res);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching image');
+    }
+}
